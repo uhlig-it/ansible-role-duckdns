@@ -1,0 +1,16 @@
+galaxy_info:
+  role_name: ansible-role-duckdns-dhcp
+  author: Steffen Uhlig
+  description: Updates DuckDNS when a network interface changes its IP address via DHCP
+  license: MIT
+  min_ansible_version: 2.6
+
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+
+  galaxy_tags:
+    - dns
+    - duckdns
+    - dhcp

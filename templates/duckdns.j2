@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ "${interface}" = "{{ duckdns.interface }}" ]; then
+  case "${reason}" in BOUND|RENEW|REBIND|REBOOT)
+    echo "${interface}: ${reason}. New IP address is $new_ip_address" | ts '[%Y-%m-%d %H:%M:%S]' >> /var/log/duckdns.log
+    echo url="https://www.duckdns.org/update?domains={{ duckdns.domain }}&token={{ duckdns.token }}&ip=$new_ip_address&verbose=true" | curl --silent --insecure --config - 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' >> /var/log/duckdns.log
+    echo >> /var/log/duckdns.log
+  ;;
+  esac
+fi

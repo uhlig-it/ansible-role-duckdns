@@ -1,0 +1,16 @@
+- name: Prerequisite software is present
+  apt:
+    pkg: "{{ packages }}"
+    state: latest
+  vars:
+    packages: [ curl, moreutils ]
+  tags: [ apt ]
+
+- name: DHCP enter-hook is present
+  template:
+    src: duckdns.j2
+    dest: /etc/dhcp/dhclient-enter-hooks.d/duckdns
+    owner: root
+    group: root
+    mode: 0644
+  tags: [ duckdns, network ]
