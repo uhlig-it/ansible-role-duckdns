@@ -1,7 +1,7 @@
 galaxy_info:
-  role_name: ansible-role-duckdns-dhcp
+  role_name: ansible-role-duckdns
   author: Steffen Uhlig
-  description: Updates DuckDNS when a network interface changes its IP address via DHCP
+  description: Updates DuckDNS when a network interface changes its IP address via DHCP, and via Cron
   license: MIT
   min_ansible_version: 2.6
 

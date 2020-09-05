@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ "${interface}" = "{{ duckdns.interface }}" ]; then
+  case "${reason}" in BOUND|RENEW|REBIND|REBOOT)
+    /usr/local/bin/update-duckdns "$reason" "$interface" "$new_ip_address"
+  ;;
+  esac
+fi

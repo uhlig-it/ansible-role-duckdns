@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+readonly reason=${1:?Argument for update reason is missing}
+readonly interface=${2:?Argument for interface is missing}
+readonly new_ip_address=${3:?Argument for new IP address is missing}
+
+echo "$interface: $reason. New IP address is $new_ip_address" | ts '[%Y-%m-%d %H:%M:%S]' >> /var/log/duckdns.log
+echo url="https://www.duckdns.org/update?domains={{ duckdns.domain }}&token={{ duckdns.token }}&ip=$new_ip_address&verbose=true" | curl --silent --insecure --config - 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' >> /var/log/duckdns.log
+echo >> /var/log/duckdns.log

@@ -3,14 +3,29 @@
     pkg: "{{ packages }}"
     state: latest
   vars:
-    packages: [ curl, moreutils ]
+    packages: [ curl, iproute2, jq, moreutils ]
   tags: [ apt ]
+
+- name: DuckDNS update script is present
+  template:
+    src: update-duckdns.j2
+    dest: /usr/local/bin/update-duckdns
+    owner: root
+    group: root
+    mode: 0755
+  tags: [ duckdns, network, script ]
 
 - name: DHCP enter-hook is present
   template:
-    src: duckdns.j2
+    src: dhclient-enter-hook.j2
     dest: /etc/dhcp/dhclient-enter-hooks.d/duckdns
     owner: root
     group: root
     mode: 0644
   tags: [ duckdns, network ]
+
+- name: DuckDNS entry is updated every five minutes via Cron
+  cron:
+    name: Update DuckDNS
+    minute: "*/5"
+    job: "/usr/local/bin/update-duckdns crontab \"{{ duckdns.interface }}\" \"$(ip --json addr | jq --raw-output '.[] | select(.ifname==\"{{ duckdns.interface }}\") | .addr_info[] | select(.family==\"inet\") | .local')\""
