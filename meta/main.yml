@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: ansible-role-duckdns
+  role_name: duckdns
   author: Steffen Uhlig
   description: Updates DuckDNS when a network interface changes its IP address via DHCP, and via Cron
   license: MIT
