@@ -1,6 +1,9 @@
 # DuckDNS
 
-This is an Ansible role for updating DuckDNS when a network interface changes its IP address. It hooks into the DHCP client and updates the given DuckDNS record whenever the IP address of the given device changes.
+This is an Ansible role for updating DuckDNS when
+
+1. a network interface changes its IP address - it hooks into the DHCP client and updates the given DuckDNS record whenever the IP address of the given device changes.
+2. every five minutes, as [recommended by DuckDNS](https://www.duckdns.org/install.jsp?tab=linux-cron).
 
 ## Configuration
 
